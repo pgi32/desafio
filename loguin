@@ -1,0 +1,46 @@
+package web;
+
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
+
+public class loguinylogout {
+	String url = "https://www.demoblaze.com/index.html"; 
+	String driverPath = "..//web//drivers//chromedriver.exe";
+	
+	@Test
+	public void hacerloguinylogout () {
+		System.setProperty("webdriver.chrome.driver", driverPath);
+		WebDriver driver = new ChromeDriver();
+		driver.navigate().to(url);
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.navigate().refresh(); 
+		
+		//Paso 1 poner usurio y contraseña y hacer loguin	
+		driver.findElement(By.id("login2")).click();
+		
+		//es necesario hacer una espera ya que a ees no funciona 
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(7));
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("loginusername")));
+		
+		driver.findElement(By.id("loginusername")).sendKeys("pgi32@hotmail.com");
+		driver.findElement(By.id("loginpassword")).sendKeys("12345ABCfg");
+		driver.findElement(By.xpath("/html/body/div[3]/div/div/div[3]/button[2]")).click();
+		
+		
+				WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(5));
+				wait2.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[3]/div/div/div[3]/button[2]")));
+		
+		//Paso 2 Hacer logout
+		driver.findElement(By.cssSelector("#logout2")).click();// averiguar porque no e desloguea
+		driver.close();
+	}
+
+}
