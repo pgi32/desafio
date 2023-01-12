@@ -1,0 +1,38 @@
+package web;
+
+import java.time.Duration;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
+
+public class singup {
+	String url = "https://www.demoblaze.com/index.html"; 
+	String driverPath = "..//web//drivers//chromedriver.exe";
+	
+	@Test
+	public void hacersingup () {
+		System.setProperty("webdriver.chrome.driver", driverPath);
+		WebDriver driver = new ChromeDriver();
+		driver.navigate().to(url);
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.navigate().refresh(); 
+		
+		// Paso 1: Hacer Sing up
+		
+		driver.findElement(By.id("signin2")).click();
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		wait.until(ExpectedConditions.elementToBeClickable(By.id("sign-username")));
+		
+		//Paso 2: Escribir nombre y contraseña.
+		
+		driver.findElement(By.id("sign-username")).sendKeys("pgi32@hotmail.com");
+		driver.findElement(By.id("sign-password")).sendKeys("12345ABCfg");
+		driver.findElement(By.xpath("/html/body/div[2]/div/div/div[3]/button[2]")).click();
+		driver.close();	
+		
+	}
+	
